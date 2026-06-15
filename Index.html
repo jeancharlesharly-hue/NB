@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bin Cleaning Service Request Form</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark: #1a3a2a;
+      --green-mid:  #2d6a4f;
+      --green-light:#95d5b2;
+      --cream:      #f7f4ef;
+      --sand:       #e8e2d8;
+      --text:       #1c1c1c;
+      --muted:      #6b6b6b;
+      --radius:     10px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+    }
+
+    /* ── Language Toggle ── */
+    .lang-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .lang-btn {
+      padding: 0.45rem 1.2rem;
+      border-radius: 999px;
+      border: 2px solid var(--green-dark);
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--green-dark);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      letter-spacing: 0.04em;
+    }
+
+    .lang-btn.active {
+      background: var(--green-dark);
+      color: #fff;
+    }
+
+    .lang-btn:hover:not(.active) {
+      background: var(--green-light);
+    }
+
+    /* ── Header ── */
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      background: var(--green-dark);
+      border-radius: var(--radius);
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 2.5rem 2rem 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    header .eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--green-light);
+      margin-bottom: 0.6rem;
+    }
+
+    header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.9rem, 5vw, 2.8rem);
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    header p {
+      margin-top: 0.7rem;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.97rem;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+      max-width: 680px;
+      margin: 0 auto 1.5rem;
+      padding: 2rem;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      color: var(--green-dark);
+      border-bottom: 2px solid var(--green-light);
+      padding-bottom: 0.4rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .fields { display: grid; gap: 1.1rem; }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 520px) {
+      .field-row { grid-template-columns: 1fr; }
+      .card { padding: 1.4rem 1.2rem; }
+    }
+
+    .field { display: flex; flex-direction: column; gap: 0.35rem; }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      border: 1.5px solid var(--sand);
+      border-radius: 6px;
+      padding: 0.62rem 0.85rem;
+      font-size: 0.97rem;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--cream);
+      transition: border-color 0.18s, box-shadow 0.18s;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--green-mid);
+      box-shadow: 0 0 0 3px rgba(45,106,79,0.12);
+      background: #fff;
+    }
+
+    select {
+      border: 1.5px solid var(--sand);
+      border-radius: 6px;
+      padding: 0.62rem 2.2rem 0.62rem 0.85rem;
+      font-size: 0.97rem;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--cream) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6b6b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 0.85rem center;
+      appearance: none;
+      -webkit-appearance: none;
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      width: 100%;
+    }
+
+    select:focus {
+      border-color: var(--green-mid);
+      box-shadow: 0 0 0 3px rgba(45,106,79,0.12);
+      background-color: #fff;
+    }
+
+    /* ── Service Grid ── */
+    .grid-wrap { overflow-x: auto; }
+
+    .service-grid {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.25rem;
+    }
+
+    .service-grid th,
+    .service-grid td {
+      text-align: center;
+      padding: 0.7rem 0.6rem;
+      font-size: 0.88rem;
+    }
+
+    .service-grid thead tr {
+      background: var(--green-dark);
+      color: #fff;
+    }
+
+    .service-grid thead th:first-child {
+      text-align: left;
+      border-radius: 6px 0 0 0;
+    }
+
+    .service-grid thead th:last-child { border-radius: 0 6px 0 0; }
+
+    .service-grid tbody tr { border-bottom: 1px solid var(--sand); }
+    .service-grid tbody tr:last-child { border-bottom: none; }
+    .service-grid tbody tr:nth-child(even) { background: var(--cream); }
+
+    .service-grid tbody td:first-child {
+      font-weight: 600;
+      text-align: left;
+      color: var(--green-dark);
+    }
+
+    .price {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+      font-weight: 500;
+    }
+
+    .radio-cell.selected .price { color: var(--green-mid); font-weight: 600; }
+    tr.selected-row td { background: #edf7f1 !important; }
+
+    /* Radio pill */
+    .radio-cell { position: relative; }
+
+    .radio-cell input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0; height: 0;
+    }
+
+    .radio-cell label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      border: 2px solid var(--sand);
+      background: #fff;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      text-transform: none;
+      font-size: 1rem;
+      color: transparent;
+    }
+
+    .radio-cell input[type="radio"]:checked + label {
+      background: var(--green-mid);
+      border-color: var(--green-mid);
+    }
+
+    .radio-cell input[type="radio"]:checked + label::after {
+      content: '';
+      display: block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .radio-cell input[type="radio"]:focus-visible + label {
+      box-shadow: 0 0 0 3px rgba(45,106,79,0.25);
+    }
+
+    /* ── Consent ── */
+    .consent-wrap {
+      display: flex;
+      gap: 0.9rem;
+      align-items: flex-start;
+      padding: 1.1rem 1.2rem;
+      background: var(--cream);
+      border-radius: 8px;
+      border: 1.5px solid var(--sand);
+    }
+
+    .consent-wrap input[type="checkbox"] {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      accent-color: var(--green-mid);
+      margin-top: 2px;
+      cursor: pointer;
+    }
+
+    .consent-wrap p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .consent-wrap strong { color: var(--text); }
+
+    /* ── Submit ── */
+    .submit-btn {
+      display: block;
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0.9rem;
+      background: var(--green-dark);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.18s, transform 0.12s;
+      letter-spacing: 0.02em;
+    }
+
+    .submit-btn:hover { background: var(--green-mid); }
+    .submit-btn:active { transform: scale(0.98); }
+    .submit-btn:focus-visible {
+      outline: 3px solid var(--green-light);
+      outline-offset: 3px;
+    }
+
+    .success {
+      display: none;
+      max-width: 680px;
+      margin: 1.5rem auto 0;
+      background: #d8f3dc;
+      border: 1.5px solid var(--green-mid);
+      border-radius: var(--radius);
+      padding: 1rem 1.4rem;
+      font-size: 0.95rem;
+      color: var(--green-dark);
+      font-weight: 500;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Language Toggle -->
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">🇨🇦 English</button>
+    <button class="lang-btn" id="btn-fr" onclick="setLang('fr')">🇨🇦 Français</button>
+  </div>
+
+  <header>
+    <p class="eyebrow" data-en="Get Started" data-fr="Commencer">Get Started</p>
+    <h1 data-en="Bin Cleaning Service<br>Request Form" data-fr="Formulaire de demande<br>de service de nettoyage de bacs">Bin Cleaning Service<br>Request Form</h1>
+    <p data-en="Fill out the form below and we'll be in touch shortly." data-fr="Remplissez le formulaire ci-dessous et nous vous contacterons sous peu.">Fill out the form below and we'll be in touch shortly.</p>
+  </header>
+
+  <form id="signupForm" action="https://formspree.io/f/mjgdawqe" method="POST" novalidate>
+
+    <!-- Hidden language field sent to Formspree -->
+    <input type="hidden" name="language" id="langField" value="English" />
+
+    <!-- Basic Info -->
+    <div class="card">
+      <h2 class="section-title" data-en="Your Information" data-fr="Vos coordonnées">Your Information</h2>
+      <div class="fields">
+        <div class="field-row">
+          <div class="field">
+            <label for="firstName" data-en="First Name" data-fr="Prénom">First Name</label>
+            <input type="text" id="firstName" name="firstName" required />
+          </div>
+          <div class="field">
+            <label for="lastName" data-en="Last Name" data-fr="Nom de famille">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="phone" data-en="Phone Number" data-fr="Numéro de téléphone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required />
+          </div>
+          <div class="field">
+            <label for="email" data-en="Email Address" data-fr="Adresse courriel">Email Address</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="address" data-en="Street Address" data-fr="Adresse civique">Street Address</label>
+          <input type="text" id="address" name="address" required />
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="city" data-en="City" data-fr="Ville">City</label>
+            <input type="text" id="city" name="city" required />
+          </div>
+          <div class="field">
+            <label for="zip" data-en="ZIP / Postal Code" data-fr="Code postal">ZIP / Postal Code</label>
+            <input type="text" id="zip" name="zip" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="pickupDay" data-en="Pickup Day" data-fr="Jour de collecte">Pickup Day</label>
+          <select id="pickupDay" name="pickupDay" required>
+            <option value="" disabled selected data-en="Select a day…" data-fr="Choisir un jour…">Select a day…</option>
+            <option value="Monday"    data-en="Monday"    data-fr="Lundi">Monday</option>
+            <option value="Tuesday"   data-en="Tuesday"   data-fr="Mardi">Tuesday</option>
+            <option value="Wednesday" data-en="Wednesday" data-fr="Mercredi">Wednesday</option>
+            <option value="Thursday"  data-en="Thursday"  data-fr="Jeudi">Thursday</option>
+            <option value="Friday"    data-en="Friday"    data-fr="Vendredi">Friday</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service Grid -->
+    <div class="card">
+      <h2 class="section-title" data-en="Service Selection" data-fr="Sélection du service">Service Selection</h2>
+      <p style="font-size:0.88rem;color:var(--muted);margin-bottom:1rem;"
+         data-en="Select your preferred number of bins and pickup frequency."
+         data-fr="Sélectionnez le nombre de bacs et la fréquence de collecte souhaitée.">
+        Select your preferred number of bins and pickup frequency.
+      </p>
+      <div class="grid-wrap">
+        <table class="service-grid" role="grid">
+          <thead>
+            <tr>
+              <th scope="col" data-en="Bins" data-fr="Bacs">Bins</th>
+              <th scope="col" data-en="Monthly" data-fr="Mensuel">Monthly</th>
+              <th scope="col" data-en="Bi-Monthly" data-fr="Bimensuel">Bi-Monthly</th>
+              <th scope="col" data-en="Seasonal" data-fr="Saisonnier">Seasonal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-en="2 Bins" data-fr="2 Bacs">2 Bins</td>
+              <td class="radio-cell"><input type="radio" id="b2m" name="service" value="2-monthly" /><label for="b2m"></label><span class="price">$55/mo</span></td>
+              <td class="radio-cell"><input type="radio" id="b2bm" name="service" value="2-bimonthly" /><label for="b2bm"></label><span class="price">$75/mo</span></td>
+              <td class="radio-cell"><input type="radio" id="b2s" name="service" value="2-seasonal" /><label for="b2s"></label><span class="price">$105/mo</span></td>
+            </tr>
+            <tr>
+              <td data-en="3 Bins" data-fr="3 Bacs">3 Bins</td>
+              <td class="radio-cell"><input type="radio" id="b3m" name="service" value="3-monthly" /><label for="b3m"></label><span class="price">$65/mo</span></td>
+              <td class="radio-cell"><input type="radio" id="b3bm" name="service" value="3-bimonthly" /><label for="b3bm"></label><span class="price">$85/mo</span></td>
+              <td class="radio-cell"><input type="radio" id="b3s" name="service" value="3-seasonal" /><label for="b3s"></label><span class="price">$115/mo</span></td>
+            </tr>
+            <tr>
+              <td data-en="4 Bins" data-fr="4 Bacs">4 Bins</td>
+              <td class="radio-cell"><input type="radio" id="b4m" name="service" value="4-monthly" /><label for="b4m"></label><span class="price">$75/mo</span></td>
+              <td class="radio-cell"><input type="radio" id="b4bm" name="service" value="4-bimonthly" /><label for="b4bm"></label><span class="price">$95/mo</span></td>
+              <td class="radio-cell"><input type="radio" id="b4s" name="service" value="4-seasonal" /><label for="b4s"></label><span class="price">$125/mo</span></td>
+            </tr>
+            <tr>
+              <td data-en="5 Bins" data-fr="5 Bacs">5 Bins</td>
+              <td class="radio-cell"><input type="radio" id="b5m" name="service" value="5-monthly" /><label for="b5m"></label><span class="price">$85/mo</span></td>
+              <td class="radio-cell"><input type="radio" id="b5bm" name="service" value="5-bimonthly" /><label for="b5bm"></label><span class="price">$105/mo</span></td>
+              <td class="radio-cell"><input type="radio" id="b5s" name="service" value="5-seasonal" /><label for="b5s"></label><span class="price">$135/mo</span></td>
+            </tr>
+            <tr>
+              <td data-en="6 Bins" data-fr="6 Bacs">6 Bins</td>
+              <td class="radio-cell"><input type="radio" id="b6m" name="service" value="6-monthly" /><label for="b6m"></label><span class="price">$95/mo</span></td>
+              <td class="radio-cell"><input type="radio" id="b6bm" name="service" value="6-bimonthly" /><label for="b6bm"></label><span class="price">$115/mo</span></td>
+              <td class="radio-cell"><input type="radio" id="b6s" name="service" value="6-seasonal" /><label for="b6s"></label><span class="price">$145/mo</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Questions -->
+    <div class="card">
+      <h2 class="section-title" data-en="Questions or Comments" data-fr="Questions ou commentaires">Questions or Comments</h2>
+      <div class="field">
+        <label for="questions" data-en="Your Message (up to 1000 words)" data-fr="Votre message (jusqu'à 1000 mots)">Your Message (up to 1000 words)</label>
+        <textarea id="questions" name="questions" rows="6" maxlength="7000"
+          style="border:1.5px solid var(--sand);border-radius:6px;padding:0.62rem 0.85rem;font-size:0.97rem;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--cream);resize:vertical;outline:none;transition:border-color 0.18s,box-shadow 0.18s;width:100%;line-height:1.6;"
+          onfocus="this.style.borderColor='var(--green-mid)';this.style.boxShadow='0 0 0 3px rgba(45,106,79,0.12)';this.style.background='#fff';"
+          onblur="this.style.borderColor='var(--sand)';this.style.boxShadow='none';this.style.background='var(--cream)';"
+          oninput="updateWordCount(this)"></textarea>
+        <span id="wordCount" style="font-size:0.78rem;color:var(--muted);text-align:right;margin-top:0.25rem;">0 / 1000 words</span>
+      </div>
+    </div>
+
+    <!-- Consent -->
+    <div class="card">
+      <h2 class="section-title" data-en="Consent" data-fr="Consentement">Consent</h2>
+      <div class="consent-wrap">
+        <input type="checkbox" id="consent" name="consent" required />
+        <p>
+          <strong data-en="I agree to the terms of service." data-fr="J'accepte les conditions d'utilisation.">I agree to the terms of service.</strong>
+          <span data-en=" By checking this box I confirm that the information provided is accurate and I consent to be contacted regarding my service request. I understand my data will be handled in accordance with the privacy policy."
+                data-fr=" En cochant cette case, je confirme que les informations fournies sont exactes et je consens à être contacté(e) concernant ma demande de service. Je comprends que mes données seront traitées conformément à la politique de confidentialité.">
+            By checking this box I confirm that the information provided is accurate and I consent to be contacted regarding my service request. I understand my data will be handled in accordance with the privacy policy.
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn" data-en="Submit Request" data-fr="Envoyer la demande">Submit Request</button>
+
+  </form>
+
+  <div class="success" id="successMsg"
+       data-en="✅ Thank you! Your request has been received. We'll be in touch soon."
+       data-fr="✅ Merci! Votre demande a bien été reçue. Nous vous contacterons bientôt.">
+    ✅ Thank you! Your request has been received. We'll be in touch soon.
+  </div>
+
+  <script>
+    function updateWordCount(textarea) {
+      const words = textarea.value.trim() === '' ? 0 : textarea.value.trim().split(/\s+/).length;
+      const lang = currentLang;
+      const label = lang === 'fr' ? `${words} / 1000 mots` : `${words} / 1000 words`;
+      document.getElementById('wordCount').textContent = label;
+      if (words > 1000) {
+        document.getElementById('wordCount').style.color = '#c0392b';
+      } else {
+        document.getElementById('wordCount').style.color = 'var(--muted)';
+      }
+    }
+
+    let currentLang = 'en';
+
+    function setLang(lang) {
+      currentLang = lang;
+
+      // Toggle button states
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+
+      // Update hidden language field
+      document.getElementById('langField').value = lang === 'en' ? 'English' : 'Français';
+
+      // Update all elements with data-en / data-fr
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (!text) return;
+        // Use innerHTML for elements that may contain <br>
+        if (el.tagName === 'H1' || el.innerHTML.includes('<')) {
+          el.innerHTML = text;
+        } else {
+          el.textContent = text;
+        }
+      });
+
+      // Update select options
+      document.querySelectorAll('select option[data-en]').forEach(opt => {
+        opt.textContent = opt.getAttribute('data-' + lang);
+      });
+
+      // Update html lang attribute
+      document.documentElement.lang = lang;
+
+      // Refresh word count label
+      const ta = document.getElementById('questions');
+      if (ta) updateWordCount(ta);
+    }
+
+    // Highlight selected row
+    document.querySelectorAll('input[name="service"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        document.querySelectorAll('.service-grid tbody tr').forEach(tr => tr.classList.remove('selected-row'));
+        document.querySelectorAll('.radio-cell').forEach(td => td.classList.remove('selected'));
+        this.closest('tr').classList.add('selected-row');
+        this.closest('.radio-cell').classList.add('selected');
+      });
+    });
+
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const lang = currentLang;
+
+      let valid = true;
+
+      form.querySelectorAll('input[required]').forEach(el => {
+        if (el.type === 'checkbox' && !el.checked) valid = false;
+        else if (el.type !== 'checkbox' && !el.value.trim()) valid = false;
+      });
+
+      const pickupDay = form.querySelector('select[required]');
+      if (pickupDay && !pickupDay.value) valid = false;
+
+      const serviceChosen = form.querySelector('input[name="service"]:checked');
+      if (!serviceChosen) valid = false;
+
+      // Word count check
+      const qField = document.getElementById('questions');
+      const wordCount = qField.value.trim() === '' ? 0 : qField.value.trim().split(/\s+/).length;
+      if (wordCount > 1000) {
+        alert(currentLang === 'fr'
+          ? 'Votre message dépasse 1000 mots. Veuillez le raccourcir.'
+          : 'Your message exceeds 1000 words. Please shorten it.');
+        return;
+      }
+
+      if (!valid) {
+        alert(lang === 'fr'
+          ? 'Veuillez remplir tous les champs, choisir un jour de collecte, sélectionner un service et cocher la case de consentement.'
+          : 'Please complete all fields, choose a pickup day, select a service option, and check the consent box.');
+        return;
+      }
+
+      const btn = form.querySelector('.submit-btn');
+      btn.textContent = lang === 'fr' ? 'Envoi en cours…' : 'Sending…';
+      btn.disabled = true;
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(res => {
+        if (res.ok) {
+          form.style.display = 'none';
+          const msg = document.getElementById('successMsg');
+          msg.textContent = msg.getAttribute('data-' + lang);
+          msg.style.display = 'block';
+        } else {
+          btn.textContent = lang === 'fr' ? 'Envoyer la demande' : 'Submit Request';
+          btn.disabled = false;
+          alert(lang === 'fr' ? 'Une erreur est survenue. Veuillez réessayer.' : 'Something went wrong. Please try again.');
+        }
+      })
+      .catch(() => {
+        btn.textContent = lang === 'fr' ? 'Envoyer la demande' : 'Submit Request';
+        btn.disabled = false;
+        alert(lang === 'fr' ? 'Erreur réseau. Vérifiez votre connexion.' : 'Network error. Please check your connection and try again.');
+      });
+    });
+  </script>
+
+</body>
+</html>
